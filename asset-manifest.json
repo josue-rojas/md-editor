@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/md-editor/static/css/main.ba4bb0c5.chunk.css",
+    "main.js": "/md-editor/static/js/main.c248827b.chunk.js",
+    "main.js.map": "/md-editor/static/js/main.c248827b.chunk.js.map",
+    "runtime~main.js": "/md-editor/static/js/runtime~main.3bf7a997.js",
+    "runtime~main.js.map": "/md-editor/static/js/runtime~main.3bf7a997.js.map",
+    "static/js/2.a0f0f1df.chunk.js": "/md-editor/static/js/2.a0f0f1df.chunk.js",
+    "static/js/2.a0f0f1df.chunk.js.map": "/md-editor/static/js/2.a0f0f1df.chunk.js.map",
+    "index.html": "/md-editor/index.html",
+    "precache-manifest.dc24b42f8f27ff922074bb18e0a5afd5.js": "/md-editor/precache-manifest.dc24b42f8f27ff922074bb18e0a5afd5.js",
+    "service-worker.js": "/md-editor/service-worker.js",
+    "static/css/main.ba4bb0c5.chunk.css.map": "/md-editor/static/css/main.ba4bb0c5.chunk.css.map"
+  }
+}
