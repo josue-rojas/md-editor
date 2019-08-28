@@ -1,0 +1,13 @@
+.divider
+  width: 2px
+  height: 100%
+  background-color: rgba(0, 0, 0, 0.46)
+  transition: 350ms width, 350ms margin-left
+  position: absolute
+  top: 0
+  margin-left: -1px
+  &.slideable
+    cursor: col-resize
+    &:hover
+      width: 15px
+      margin-left: -7.5px

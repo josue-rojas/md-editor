@@ -1,24 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import SlidingPanels from './components/SlidingPanels';
+import './styles/App.css';
+
+function Left() {
+  return (
+    <div style={{ height: '100%', width: '100%', backgroundColor: 'blue' }}>Left panel stuff</div>
+  );
+}
+
+function Right() {
+  return (
+    <div style={{ height: '100%', width: '100%', backgroundColor: 'red' }}>Right Panel stuff</div>
+  );
+}
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SlidingPanels
+        className='app-sliding-panels'
+        leftChildren={<Left />}
+        rightChildren={<Right />}
+        initlPanelWidh={50}/>
     </div>
   );
 }
