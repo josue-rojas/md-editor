@@ -24,3 +24,14 @@ jobs:
         npm test
       env:
         CI: true
+  deploy:
+    needs: [build]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x]
+    steps:
+      - name: deploy to github-pages
+        run: |
+          npm install
+          npm run deploy
