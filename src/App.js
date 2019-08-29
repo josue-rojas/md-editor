@@ -3,12 +3,6 @@ import SlidingPanels from './components/SlidingPanels';
 import ToolBar from './components/ToolBar';
 import './styles/App.css';
 
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
-}
-
 function Left() {
   return (
     <div style={{ height: '100%', width: '100%', backgroundColor: 'blue' }}>Left panel stuff</div>
@@ -24,8 +18,17 @@ function Right() {
 export default function App() {
   let [ panelWidth, setPanelWidth ] = useState(50);
 
-  function togglePanel() {
-    setPanelWidth(getRandomInt(0, 101));
+
+  function splitPanel() {
+    setPanelWidth(50);
+  }
+
+  function fullLeft() {
+    setPanelWidth(100);
+  }
+
+  function fullRight() {
+    setPanelWidth(0);
   }
 
   function syncWidth(width) {
@@ -36,7 +39,9 @@ export default function App() {
   return (
     <div className="App">
       <ToolBar
-        togglePanel={togglePanel}/>
+        splitPanel={splitPanel}
+        fullLeft={fullLeft}
+        fullRight={fullRight}/>
       <SlidingPanels
         className='app-sliding-panels'
         leftChildren={<Left />}

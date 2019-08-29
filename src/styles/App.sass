@@ -1,4 +1,6 @@
+// used for padding on top for the toolbar
+$heightToolbar: 20px
+
 .app-sliding-panels
-  min-height: 100vh
-  // padding should be height of toolbar so the content on top should show
-  padding-top: 20px
+  min-height: calc(100vh - #{$heightToolbar})
+  padding-top: $heightToolbar
