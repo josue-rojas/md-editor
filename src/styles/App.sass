@@ -4,3 +4,7 @@ $heightToolbar: 20px
 .app-sliding-panels
   min-height: calc(100vh - #{$heightToolbar})
   padding-top: $heightToolbar
+  position: relative
+  .divider
+    height: calc(100% - #{$heightToolbar})
+    top: $heightToolbar
