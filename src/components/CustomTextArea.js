@@ -2,6 +2,10 @@ import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/components/CustomTextArea.css';
 
+// todo: improve rendering.
+// right now it is laggy because when it rerenders it does splits of array multiple times (which is becomes slower when it is a lot of text)
+// i think removing the split should make it faster. this might be hard to do since each line depends on the other to figure out the offset for the cursor.
+
 // a cursor is that thing that blinks when you are typing...
 function Cursor(props) {
   return (
@@ -24,9 +28,29 @@ export default function CustomTextArea(props) {
   let [ cursorPos, setCursorPos ] = useState(0);
   let textAreaRef = useRef(null);
 
+  // onchange function for textarea
   function onChange(e) {
     setCursorPos(document.activeElement.selectionStart);
     setVal(e.target.value);
+  }
+
+  // special keys need special attention
+  function onKeyPress(e) {
+    switch(e.charCode) {
+      // to make it easier arrows keys collapse to the last one to set the cursor the same way
+      case 37:
+        // falls through
+      case 38:
+        // falls through
+      case 39:
+        // falls through
+      case 40:
+        // console.log('down');
+        setCursorPos(document.activeElement.selectionStart);
+        break;
+      default:
+        // do nothing
+    }
   }
 
   // focus the textarea to change the text
@@ -34,12 +58,8 @@ export default function CustomTextArea(props) {
   function focusTextarea(e, i, offset) {
     e.stopPropagation();
     textAreaRef.current.focus();
-    console.log(i, offset);
     let cursorPos = getCursorPos(e) + offset;
-    console.log('cursor', cursorPos);
     setCursorPos(cursorPos);
-    // a realCursorPos is the cursorpos + the offset which is given when we split the letters we count the letters before it... umm might be easier to understand if you look at renderText and where it maps to render
-    // let realCursorPos = cursorPos + offset;
     document.activeElement.selectionStart = cursorPos;
     document.activeElement.selectionEnd = cursorPos;
   }
@@ -48,33 +68,31 @@ export default function CustomTextArea(props) {
   // https://developer.mozilla.org/en-US/docs/Web/API/Document/caretRangeFromPoint
   function getCursorPos(e) {
     let range;
-    // let textNode;
     let offset;
-
     if (document.caretPositionFromPoint) {
       range = document.caretPositionFromPoint(e.clientX, e.clientY);
-      // textNode = range.offsetNode;
       offset = range.offset;
     } else if (document.caretRangeFromPoint) {
       range = document.caretRangeFromPoint(e.clientX, e.clientY);
-      // textNode = range.startContainer;
       offset = range.startOffset;
     }
     // console.log('range', range);
-    // console.log('textNode', textNode);
     // console.log('offset', offset);
     return offset;
   }
 
+  // function returns the how the text is suppose to be rendered
+  // by default the render function is regular text with new lines being a new div
+  // you can pass in a prop that renders the value differently.
   function renderText(val, cursorPos) {
     if(props.renderText) {
       // todo: should pass cursor position
       return props.renderText(val, cursorPos);
     }
-
     val = val.split('\n');
     let offset = 0;
     let textComponent = val.map((el, i) => {
+      // scoping the offset so the onclick function gets the right value
       let _offset = offset;
       let component = (<div
         key={`text-render-${i}`}
@@ -85,7 +103,6 @@ export default function CustomTextArea(props) {
       offset += el.length+1;
       return component;
     });
-
     return (
       <div
         onClick={focusTextarea}
@@ -95,14 +112,14 @@ export default function CustomTextArea(props) {
     );
   }
 
-
   return (
     <div
       className={`custom-text-area ${props.className || ''}`}>
       <textarea
         ref={textAreaRef}
         val={val}
-        onChange={onChange}/>
+        onChange={onChange}
+        onKeyPress={onKeyPress}/>
       { renderText(val, cursorPos) }
     </div>
   );
