@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import SlidingPanels from './components/SlidingPanels';
 import ToolBar from './components/ToolBar';
+import CustomTextArea from './components/CustomTextArea';
 import './styles/App.css';
 
 function Left() {
   return (
-    <div style={{ height: '100%', width: '100%', backgroundColor: 'blue' }}>Left panel stuff</div>
+    <div style={{ height: '100%', width: '100%' }}>
+      <CustomTextArea/>
+    </div>
   );
 }
 
@@ -17,7 +20,6 @@ function Right() {
 
 export default function App() {
   let [ panelWidth, setPanelWidth ] = useState(50);
-
 
   function splitPanel() {
     setPanelWidth(50);
@@ -34,8 +36,7 @@ export default function App() {
   function syncWidth(width) {
     setPanelWidth(width);
   }
-
-
+  
   return (
     <div className="App">
       <ToolBar

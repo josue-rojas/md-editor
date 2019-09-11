@@ -1,0 +1,50 @@
+@import '../mixins.sass'
+
+.custom-text-area
+  display: flex
+  flex-flow: wrap
+  min-height: 100vh
+  padding: 10px
+  flex-direction: column
+  .pseudo-textarea
+    width: 100%
+    height: 100%
+    flex: 2
+    min-height: 1rem
+    cursor: text
+    .norm-text
+      min-height: 1rem
+  textarea
+    // display: none
+    // width: 0
+    // height: 0
+    margin: 0
+    padding: 0
+    border: 0
+    resize: none
+    overflow: hidden
+    // min-height: calc(1rem + 4px)
+    // font-size: 1rem
+    // &:focus
+    //   box-shadow: 0
+    //   outline: none
+  // .cursor
+  //   height: 1em
+  //   width: 1px
+  //   background-color: red
+  //   display: inline-block
+
+.cursor
+  min-height: inherit
+  width: 1px
+  background-color: black
+  animation-name: blink
+  animation-iteration-count: infinite
+  animation-direction: alternate
+  display: inline-block
+
++keyframes(blink)
+  0%
+    opacity: 0
+  100%
+    opacity: 1
