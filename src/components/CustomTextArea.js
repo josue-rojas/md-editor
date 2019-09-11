@@ -5,6 +5,7 @@ import '../styles/components/CustomTextArea.css';
 // todo: improve rendering.
 // right now it is laggy because when it rerenders it does splits of array multiple times (which is becomes slower when it is a lot of text)
 // i think removing the split should make it faster. this might be hard to do since each line depends on the other to figure out the offset for the cursor.
+// an idea i have is to figure out which line is changed and only update that one and the ones after. this way we render best case scenario 1 but worse is still n lines... still way better than n all the time.
 
 // a cursor is that thing that blinks when you are typing...
 function Cursor(props) {
@@ -45,7 +46,6 @@ export default function CustomTextArea(props) {
       case 39:
         // falls through
       case 40:
-        // console.log('down');
         setCursorPos(document.activeElement.selectionStart);
         break;
       default:
@@ -64,7 +64,7 @@ export default function CustomTextArea(props) {
     document.activeElement.selectionEnd = cursorPos;
   }
 
-  // get cursor position we use this. (might need to figure out different way since it is not fully supported).
+  // get cursor position (might need to figure out different way since it is not fully supported).
   // https://developer.mozilla.org/en-US/docs/Web/API/Document/caretRangeFromPoint
   function getCursorPos(e) {
     let range;
@@ -76,6 +76,7 @@ export default function CustomTextArea(props) {
       range = document.caretRangeFromPoint(e.clientX, e.clientY);
       offset = range.startOffset;
     }
+    // console.table([e.clientX, e.clientY])
     // console.log('range', range);
     // console.log('offset', offset);
     return offset;
@@ -94,13 +95,16 @@ export default function CustomTextArea(props) {
     let textComponent = val.map((el, i) => {
       // scoping the offset so the onclick function gets the right value
       let _offset = offset;
+      // getting and placing a cursor is more troublesome than i thought.
+      // let cursorPosInArr = cursorPos - offset;
+      // let cursor = cursorPosInArr > -1 && cursorPosInArr < el.length+1 ? "" : '';
+      offset += el.length+1;
       let component = (<div
         key={`text-render-${i}`}
         onClick={(e) => focusTextarea(e, i, _offset)}
         className='norm-text'>
         {el}
       </div>)
-      offset += el.length+1;
       return component;
     });
     return (
