@@ -15,7 +15,7 @@ export default function RenderMD(text, focusTextarea) {
   let offset = 0;
   let textComponent = val.map((el, i) => {
     let type = '';
-    let className='';
+    let className='norm-text';
     let specialChars = 0;
     // so this should only check the first letter first so it won't waste time checking the rest
     // this is assuming we only care for the md things that are at the start

@@ -1,19 +1,19 @@
+@import '../colors.sass'
+@import '../sizes.sass'
+
 .toolbar
   width: 100%
   position: fixed
-  height: 26px
-  background-color: white
-  border-bottom: 1px solid gray
+  height: $heightToolbar
+  background-color: $background-orig
+  border-bottom: 1px solid $border-color
   z-index: 100
   display: flex
   align-items: center
+  transition: background-color $transition-color-time, color $transition-color-time
   .toggle-panel-icon
     display: inline-block
-    // background-color: green
-    // border-left: 1px solid pink
-    // border-right: 1px solid pink
     width: 24px
-    // width: 120px
     height: 24px
     cursor: pointer
     background-position: center
@@ -21,11 +21,29 @@
     background-size: contain
     margin: auto 3px auto
     text-align: center
+    &.icon
+      -webkit-mask-size: cover
+      mask-size: cover
+      -webkit-marsk-size: cover
+      transition: background-color $transition-color-time
+      background-color: $font-orig
   .icon-half
-    background-image: url('../../images/svg/half.svg')
+    -webkit-mask: url('../../images/svg/half.svg') 50% 50% no-repeat
   .icon-rhalf
-    background-image: url('../../images/svg/rhalf.svg')
+    -webkit-mask: url('../../images/svg/rhalf.svg') 50% 50% no-repeat
   .icon-lhalf
-    background-image: url('../../images/svg/lhalf.svg')
+    -webkit-mask: url('../../images/svg/lhalf.svg') 50% 50% no-repeat
+  .icon-darkmode
+    -webkit-mask: url('../../images/feather/moon.svg') 50% 50% no-repeat
   .h1, .h2, .h3, .h4, .h5, .h6
     font-weight: bold
+    display: flex
+    align-items: center
+
+.dark
+  .toolbar
+    background-color: $background-darkmode-second
+    color: $font-darkmode
+    .toggle-panel-icon
+      &.icon
+        background-color: $font-darkmode

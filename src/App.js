@@ -21,6 +21,7 @@ export default function App() {
   let [ panelWidth, setPanelWidth ] = useState(50);
   let [ cursorPos, setCursorPos ] = useState(0);
   let [ textValue, setTextValue ] = useState("");
+  let [ isDarkMode, setDarkMode ] = useState(false);
 
   function splitPanel() {
     setPanelWidth(50);
@@ -69,12 +70,16 @@ export default function App() {
     setTextValue(val.join('\n'));
   }
 
+  function toggleDarkmode() {
+    setDarkMode(!isDarkMode);
+  }
   return (
-    <div className="App">
+    <div className={`App ${isDarkMode ? 'dark' : ''}`}>
       <ToolBar
         splitPanel={splitPanel}
         fullLeft={fullLeft}
         fullRight={fullRight}
+        toggleDarkmode={toggleDarkmode}
         h1={()=> injectTextBeg('# ', cursorPos)}
         h2={()=> injectTextBeg('## ', cursorPos)}
         h3={()=> injectTextBeg('### ', cursorPos)}
