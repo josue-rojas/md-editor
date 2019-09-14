@@ -1,4 +1,5 @@
 @import '../mixins.sass'
+@import '../colors.sass'
 
 .custom-text-area
   display: flex
@@ -6,6 +7,7 @@
   min-height: 100vh
   padding: 10px
   flex-direction: column
+  transition: background-color $transition-color-time, color $transition-color-time
   .pseudo-textarea
     width: 100%
     height: 100%
@@ -33,6 +35,9 @@
       font-size: .67em
       font-weight: bolder
   textarea
+    background-color: inherit
+    color: inherit
+    // transition: background-color $transition-color-time, color $transition-color-time 
     // display: none
     // width: 0
     // height: 0
@@ -41,16 +46,6 @@
     border: 0
     resize: none
     overflow: hidden
-    // min-height: calc(1rem + 4px)
-    // font-size: 1rem
-    // &:focus
-    //   box-shadow: 0
-    //   outline: none
-  // .cursor
-  //   height: 1em
-  //   width: 1px
-  //   background-color: red
-  //   display: inline-block
 
 .cursor
   min-height: inherit
@@ -61,6 +56,10 @@
   animation-direction: alternate
   display: inline-block
 
+.dark
+  .custom-text-area
+    background-color: $background-darkmode
+    color: $font-darkmode
 +keyframes(blink)
   0%
     opacity: 0
