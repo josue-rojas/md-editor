@@ -17,6 +17,8 @@ export default function RenderMD(text, focusTextarea) {
     let type = '';
     let className='';
     let specialChars = 0;
+    // so this should only check the first letter first so it won't waste time checking the rest
+    // this is assuming we only care for the md things that are at the start
     for(let i in el) {
       type += el[i];
       let isBreakOut = false;
@@ -33,14 +35,25 @@ export default function RenderMD(text, focusTextarea) {
           specialChars = 4;
           className = 'heading-3';
           break;
+        case '#### ':
+          specialChars = 5;
+          className = 'heading-4';
+          break;
+        case '##### ':
+          specialChars = 6;
+          className = 'heading-5';
+          break;
+        case '###### ':
+          specialChars = 47;
+          className = 'heading-6';
+          break;
         default:
           isBreakOut = true;
         if(isBreakOut) break;
       }
     }
-    let _offset = offset;
+    let _offset = offset + specialChars;
     offset += el.length + 1;
-    console.log(offset);
     return (
       <div
         className={className}
