@@ -31,13 +31,15 @@ export default function CustomTextArea(props) {
 
   // onchange function for textarea
   function onChange(e) {
-    setCursorPos(document.activeElement.selectionStart);
+    setCursorPosState(document.activeElement.selectionStart);
+    // setCursorPos(document.activeElement.selectionStart);
     props.onChange(e.target.value);
     // setVal(e.target.value);
   }
 
   // special keys need special attention
   // TODO: need to change cause i forgot that the textbox width does or font size does not match div so it wraps differently
+  // if we use the current position of the cursor then we can use caretPositionFromPoint to get the new position. 
   function onKeyPress(e) {
     switch(e.charCode) {
       // to make it easier arrows keys collapse to the last one to set the cursor the same way
@@ -48,11 +50,19 @@ export default function CustomTextArea(props) {
       case 39:
         // falls through
       case 40:
-        setCursorPos(document.activeElement.selectionStart);
+        setCursorPosState(document.activeElement.selectionStart);
         break;
       default:
         // do nothing
     }
+  }
+
+  // set the posiion of the cursor...
+  function setCursorPosState(cursorPos) {
+    setCursorPos(cursorPos);
+    document.activeElement.selectionStart = cursorPos;
+    document.activeElement.selectionEnd = cursorPos;
+    if(props.syncCursorPos) props.syncCursorPos(cursorPos);
   }
 
   // focus the textarea to change the text
@@ -61,9 +71,10 @@ export default function CustomTextArea(props) {
     e.stopPropagation();
     textAreaRef.current.focus();
     let cursorPos = getCursorPos(e) + offset;
-    setCursorPos(cursorPos);
-    document.activeElement.selectionStart = cursorPos;
-    document.activeElement.selectionEnd = cursorPos;
+    setCursorPosState(cursorPos);
+     // setCursorPos(cursorPos);
+    // document.activeElement.selectionStart = cursorPos;
+    // document.activeElement.selectionEnd = cursorPos;
   }
 
   // get cursor position (might need to figure out different way since it is not fully supported).
@@ -134,5 +145,6 @@ export default function CustomTextArea(props) {
 CustomTextArea.propTypes = {
   renderText: PropTypes.func,
   onChange: PropTypes.func,
+  syncCursorPos: PropTypes.func,
   val: PropTypes.string
 }

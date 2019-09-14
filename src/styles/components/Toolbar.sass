@@ -1,15 +1,31 @@
 .toolbar
   width: 100%
   position: fixed
-  height: 20px
-  background-color: grey
+  height: 26px
+  // background-color: grey
+  border-bottom: 1px solid gray
   z-index: 100
+  display: flex
+  align-items: center
   .toggle-panel-icon
     display: inline-block
-    background-color: green
-    border-left: 1px solid pink
-    border-right: 1px solid pink
-    // width: 20px
-    width: 120px
-    height: 20px
+    // background-color: green
+    // border-left: 1px solid pink
+    // border-right: 1px solid pink
+    width: 24px
+    // width: 120px
+    height: 24px
     cursor: pointer
+    background-position: center
+    background-repeat: no-repeat
+    background-size: contain
+    margin: auto 3px auto
+    text-align: center
+  .icon-half
+    background-image: url('../../images/svg/half.svg')
+  .icon-rhalf
+    background-image: url('../../images/svg/rhalf.svg')
+  .icon-lhalf
+    background-image: url('../../images/svg/lhalf.svg')
+  .h1, .h2, .h3, .h4, .h5, .h6
+    font-weight: bold
