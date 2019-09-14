@@ -75,7 +75,12 @@ export default function App() {
         splitPanel={splitPanel}
         fullLeft={fullLeft}
         fullRight={fullRight}
-        h1={()=> injectTextBeg('# ', cursorPos)}/>
+        h1={()=> injectTextBeg('# ', cursorPos)}
+        h2={()=> injectTextBeg('## ', cursorPos)}
+        h3={()=> injectTextBeg('### ', cursorPos)}
+        h4={()=> injectTextBeg('#### ', cursorPos)}
+        h5={()=> injectTextBeg('##### ', cursorPos)}
+        h6={()=> injectTextBeg('###### ', cursorPos)} />
       <SlidingPanels
         className='app-sliding-panels'
         leftChildren={<TextPanel

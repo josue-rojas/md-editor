@@ -44,7 +44,7 @@ export default function RenderMD(text, focusTextarea) {
           className = 'heading-5';
           break;
         case '###### ':
-          specialChars = 47;
+          specialChars = 7;
           className = 'heading-6';
           break;
         default:

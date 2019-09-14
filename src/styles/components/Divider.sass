@@ -1,13 +1,16 @@
 .divider
-  width: 2px
+  width: 13px
   height: 100%
-  background-color: rgba(0, 0, 0, 0.46)
-  transition: 350ms width, 350ms margin-left
   position: absolute
   top: 0
-  margin-left: -1px
+  margin-left: -6.5px
+  &::after
+    content: ""
+    display: block
+    height: 100%
+    width: 1px
+    margin-left: 6px
+    position: absolute
+    background-color: rgba(0, 0, 0, 0.46)
   &.slideable
     cursor: col-resize
-    &:hover
-      width: 15px
-      margin-left: -7.5px

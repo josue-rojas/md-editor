@@ -39,6 +39,7 @@ export default function CustomTextArea(props) {
 
   // special keys need special attention
   // TODO: need to change cause i forgot that the textbox width does or font size does not match div so it wraps differently
+  // if we use the current position of the cursor then we can use caretPositionFromPoint to get the new position. 
   function onKeyPress(e) {
     switch(e.charCode) {
       // to make it easier arrows keys collapse to the last one to set the cursor the same way
