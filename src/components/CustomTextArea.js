@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import '../styles/components/CustomTextArea.css';
+import RenderDefault from '../render_functions/RenderDefault';
 
 // todo: improve rendering.
 // right now it is laggy because when it rerenders it does splits of array multiple times (which is becomes slower when it is a lot of text)
@@ -39,7 +40,7 @@ export default function CustomTextArea(props) {
 
   // special keys need special attention
   // TODO: need to change cause i forgot that the textbox width does or font size does not match div so it wraps differently
-  // if we use the current position of the cursor then we can use caretPositionFromPoint to get the new position. 
+  // if we use the current position of the cursor then we can use caretPositionFromPoint to get the new position.
   function onKeyPress(e) {
     switch(e.charCode) {
       // to make it easier arrows keys collapse to the last one to set the cursor the same way
@@ -99,34 +100,7 @@ export default function CustomTextArea(props) {
   // by default the render function is regular text with new lines being a new div
   // you can pass in a prop that renders the value differently.
   function renderText(val, cursorPos) {
-    if(props.renderText) {
-      // todo: should pass cursor position
-      return props.renderText(val, focusTextarea);
-    }
-    val = val.split('\n');
-    let offset = 0;
-    let textComponent = val.map((el, i) => {
-      // scoping the offset so the onclick function gets the right value
-      let _offset = offset;
-      // getting and placing a cursor is more troublesome than i thought.
-      // let cursorPosInArr = cursorPos - offset;
-      // let cursor = cursorPosInArr > -1 && cursorPosInArr < el.length+1 ? "" : '';
-      offset += el.length+1;
-      let component = (<div
-        key={`text-render-${i}`}
-        onClick={(e) => focusTextarea(e, i, _offset)}
-        className='norm-text'>
-        {el}
-      </div>)
-      return component;
-    });
-    return (
-      <div
-        onClick={focusTextarea}
-        className='pseudo-textarea'>
-        { textComponent }
-      </div>
-    );
+    return props.renderText ? props.renderText(val, focusTextarea) : RenderDefault(val, focusTextarea);
   }
 
   return (
